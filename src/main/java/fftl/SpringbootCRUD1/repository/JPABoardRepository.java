@@ -4,6 +4,7 @@ import fftl.SpringbootCRUD1.domain.Board;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.EntityManager;
+import java.util.ArrayList;
 import java.util.List;
 
 public class JPABoardRepository implements BoardRepository{
@@ -23,7 +24,8 @@ public class JPABoardRepository implements BoardRepository{
 
     @Override
     public Board findById(Long id) {
-        return null;
+        Board board = em.find(Board.class, id);
+        return board;
     }
 
     @Override
@@ -33,6 +35,6 @@ public class JPABoardRepository implements BoardRepository{
 
     @Override
     public List<Board> findAll() {
-        return null;
+        return em.createQuery("select m from BOARD m", Board.class).getResultList();
     }
 }

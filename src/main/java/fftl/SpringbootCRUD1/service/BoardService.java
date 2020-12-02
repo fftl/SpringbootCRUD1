@@ -2,7 +2,11 @@ package fftl.SpringbootCRUD1.service;
 
 import fftl.SpringbootCRUD1.domain.Board;
 import fftl.SpringbootCRUD1.repository.BoardRepository;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+@Service
+@Transactional
 public class BoardService {
 
     private final BoardRepository boardRepository;
@@ -16,4 +20,9 @@ public class BoardService {
         boardRepository.save(board);
         return board.getId();
     }
+
+    public Board findOne(Long memberId) {
+        return boardRepository.findById(memberId);
+    }
+
 }
