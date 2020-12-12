@@ -1,15 +1,17 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header" />
 <body>
 <div class="container">
+    <div th:replace="fragments/bodyHeader :: bodyHeader"/>
     <div>
-        <h1>SPRINGBOOT CRUD 1</h1>
-        <p>게시판 기능</p>
+        <h3>게시판 기능</h3>
         <p>
-            <a href="/board/add">게시글 추가</a>
-            <a href="/board/list">게시글 목록</a>
+            <button class="btn btn-primary" onclick="location.href='/board/add'">게시글 추가</button>
+            <button class="btn btn-primary" onclick="location.href='/board/list'">게시글 목록</button>
         </p>
     </div>
+    <div th:replace="fragments/footer :: footer" />
 </div>
 </body>
 </html>

@@ -1,24 +1,32 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header" />
 <body>
 <div class="container">
+    <div th:replace="fragments/bodyHeader :: bodyHeader"/>
     <div>
-        <h1>게시글 추가</h1>
+        <h3>게시글 추가</h3>
         <form action="/board/add" method="post">
             <div class="form-group">
-                <label for="writer">작성자</label>
-                <input type="text" id="writer" name="writer" placeholder="작성자">
-                <label for="title">제목</label>
-                <input type="text" id="title" name="title" placeholder="제목">
-                <label for="content">내용</label>
-                <input type="text" id="content" name="content" placeholder="내용을 입력하세요.">
+                <div>
+                    <label for="writer">작성자</label>
+                    <input style="width:300px;" class="form-control" type="text" id="writer" name="writer" placeholder="작성자">
+                </div>
+                <div>
+                    <label for="title">제목</label>
+                    <input style="width:300px;" class="form-control" type="text" id="title" name="title" placeholder="제목">
+                </div>
+                <div>
+                    <label for="content">내용</label>
+                    <textarea style="width:600px;" class="form-control" type="text" id="content" name="content" placeholder="내용을 입력하세요."></textarea>
+                </div>
             </div>
-            <button type="submit">등록</button>
+            <br/>
+            <button class="btn btn-dark" type="submit">등록</button>
+            <button class="btn btn-secondary" onclick="location.href='/'">취소</button>
         </form>
-        <p>
-            <a href="/">취소</a>
-        </p>
     </div>
+    <div th:replace="fragments/footer :: footer" />
 </div>
 </body>
 </html>
