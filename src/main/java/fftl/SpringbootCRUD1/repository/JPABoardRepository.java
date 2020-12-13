@@ -2,11 +2,13 @@ package fftl.SpringbootCRUD1.repository;
 
 import fftl.SpringbootCRUD1.domain.Board;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import java.util.ArrayList;
 import java.util.List;
 
+@Repository
 public class JPABoardRepository implements BoardRepository{
 
     private final EntityManager em;
@@ -35,6 +37,6 @@ public class JPABoardRepository implements BoardRepository{
 
     @Override
     public List<Board> findAll() {
-        return em.createQuery("select m from BOARD m", Board.class).getResultList();
+        return em.createQuery("select b from Board b", Board.class).getResultList();
     }
 }
