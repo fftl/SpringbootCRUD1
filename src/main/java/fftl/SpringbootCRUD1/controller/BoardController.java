@@ -6,6 +6,7 @@ import fftl.SpringbootCRUD1.service.BoardService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -27,7 +28,7 @@ public class BoardController {
         return "board/add";
     }
 
-    @PostMapping("board/add")
+    @PostMapping("/board/add")
     public String add(Board boardform){
         SimpleDateFormat format1 = new SimpleDateFormat( "yyyy-MM-dd HH:mm:ss");
         Date date = new Date();
@@ -52,7 +53,7 @@ public class BoardController {
         return "board/list";
     }
 
-    @PostMapping("board/{boardId}/update")
+    @GetMapping("board/{boardId}/update")
     public String viewUpdate(@PathVariable("boardId") Long id, Model model ){
         Board board = boardService.findOne(id);
 
@@ -66,6 +67,21 @@ public class BoardController {
         model.addAttribute("form", form);
 
         return "board/update";
+
+    }
+
+    @PostMapping("board/{boardId}/update")
+    public String viewUpdate(@PathVariable("boardId") Long id, @ModelAttribute("form") Board getForm){
+
+        Board form = new Board();
+        form.setId(getForm.getId());
+        form.setWriter(getForm.getWriter());
+        form.setContent(getForm.getContent());
+        form.setTitle(getForm.getTitle());
+
+        boardService.saveBoard(form);
+
+        return "redirect:board/list";
 
     }
 }

@@ -33,6 +33,10 @@ public class BoardService {
         return boardRepository.findAll();
     }
 
+    @Transactional
+    public void saveBoard(Board board){
+        boardRepository.save(board);
+    }
 
 
 }

@@ -20,7 +20,11 @@ public class JPABoardRepository implements BoardRepository{
 
     @Override
     public Board save(Board board) {
-        em.persist(board);
+        if(board.getId() == null){
+            em.persist(board);
+        } else {
+            em.merge(board); // update 비슷한 것 왠만하면 merge가 아닌 ItemService의 변경감지를 이용하도록합니다.
+        }
         return board;
     }
 
