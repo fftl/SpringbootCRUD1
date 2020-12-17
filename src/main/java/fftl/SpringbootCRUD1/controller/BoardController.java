@@ -71,7 +71,7 @@ public class BoardController {
     }
 
     @PostMapping("board/{boardId}/update")
-    public String viewUpdate(@PathVariable("boardId") Long id, @ModelAttribute("form") Board getForm){
+    public String updateBoard(@PathVariable("boardId") Long id, @ModelAttribute("form") Board getForm){
 
         Board form = new Board();
         form.setId(getForm.getId());
@@ -81,7 +81,16 @@ public class BoardController {
 
         boardService.saveBoard(form);
 
-        return "redirect:board/list";
+        return "board/list";
+
+    }
+
+    @GetMapping("board/{boardId}/delete")
+    public String deleteBoard(@PathVariable("boardId") Long id){
+
+        boardService.deleteBoard(id);
+
+        return "board/list";
 
     }
 }

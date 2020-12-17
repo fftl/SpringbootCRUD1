@@ -18,10 +18,9 @@
             <tbody>
             <tr th:each="board : ${boards}">
                 <td th:text="${board.id}"></td>
-                <td><a th:text="${board.title}" th:href="@{/board/{id}/update (id=${board.id})}" style="text-decoration:none;"></a></td>
+                <td><a th:text="${board.title}" th:href="@{/board/{boardId}/update (boardId=${board.id})}" style="text-decoration:none;"></a></td>
                 <td th:text="${board.writer}"></td>
                 <td th:text="${board.regdate}">
-
                 </td>
             </tr>
             </tbody>

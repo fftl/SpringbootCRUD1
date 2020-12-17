@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,5 +43,13 @@ public class JPABoardRepository implements BoardRepository{
     @Override
     public List<Board> findAll() {
         return em.createQuery("select b from Board b", Board.class).getResultList();
+    }
+
+    @Override
+    public int deleteBoard(Long id) {
+        Query query = em.createQuery("delete from Board b where b.id = :boardId");
+        query.setParameter("boardId", id);
+        int result = query.executeUpdate();
+        return result;
     }
 }

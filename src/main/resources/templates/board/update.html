@@ -6,7 +6,7 @@
     <div th:replace="fragments/bodyHeader :: bodyHeader"/>
     <div>
         <h3>게시글 조회</h3>
-        <form th:th:object="${form}" method="post">
+        <form th:action="@{/board/{id}/update (id=*{id})}" th:object="${form}" method="post">
             <div class="form-group">
                 <div>
                     <label th:for="writer">작성자</label>
@@ -24,6 +24,7 @@
             <br/>
             <button class="btn btn-dark" type="submit">등록</button>
             <button class="btn btn-secondary" onclick="location.href='/'">취소</button>
+            <a th:href="@{/board/{boardId}/delete (boardId=*{id})}">삭제</a>
         </form>
     </div>
     <div th:replace="fragments/footer :: footer" />

@@ -38,5 +38,8 @@ public class BoardService {
         boardRepository.save(board);
     }
 
-
+    @Transactional
+    public void deleteBoard(Long memberId){
+        boardRepository.deleteBoard(memberId);
+    }
 }

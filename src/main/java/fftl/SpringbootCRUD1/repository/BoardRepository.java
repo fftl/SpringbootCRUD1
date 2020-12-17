@@ -10,5 +10,6 @@ public interface BoardRepository {
     Board findById(Long id);
     Board findByWriter(String writer);
     List<Board> findAll();
+    int deleteBoard(Long id);
 
 }
