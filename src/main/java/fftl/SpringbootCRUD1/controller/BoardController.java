@@ -70,16 +70,17 @@ public class BoardController {
 
     }
 
-    @PostMapping("board/{boardId}/update")
-    public String updateBoard(@PathVariable("boardId") Long id, @ModelAttribute("form") Board getForm){
+    @PostMapping("board/update")
+    public String updateBoard(@ModelAttribute("form") Board getForm){
 
-        Board form = new Board();
-        form.setId(getForm.getId());
-        form.setWriter(getForm.getWriter());
-        form.setContent(getForm.getContent());
-        form.setTitle(getForm.getTitle());
+        Board board = new Board();
 
-        boardService.saveBoard(form);
+        board.setId(getForm.getId());
+        board.setTitle(getForm.getTitle());
+        board.setContent(getForm.getContent());
+        board.setWriter(getForm.getWriter());
+
+        boardService.saveBoard(board);
 
         return "board/list";
 
