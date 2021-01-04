@@ -1,15 +1,8 @@
 package fftl.SpringbootCRUD1.repository;
 
 import fftl.SpringbootCRUD1.domain.Board;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.List;
-
-public interface BoardRepository {
-
-    Board save(Board board);
-    Board findById(Long id);
-    Board findByWriter(String writer);
-    List<Board> findAll();
-    int deleteBoard(Long id);
+public interface BoardRepository extends JpaRepository<Board, Long>{ //JpaRepositroy<사용할 Entity, id 타입>
 
 }

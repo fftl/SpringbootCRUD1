@@ -1,7 +1,6 @@
 package fftl.SpringbootCRUD1.controller;
 
 import fftl.SpringbootCRUD1.domain.Board;
-import fftl.SpringbootCRUD1.repository.BoardRepository;
 import fftl.SpringbootCRUD1.service.BoardService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class BoardController {
@@ -55,14 +55,14 @@ public class BoardController {
 
     @GetMapping("board/{boardId}/update")
     public String viewUpdate(@PathVariable("boardId") Long id, Model model ){
-        Board board = boardService.findOne(id);
+        Optional<Board> board = boardService.findOne(id);
 
         Board form = new Board();
-        form.setId(board.getId());
-        form.setWriter(board.getWriter());
-        form.setRegdate(board.getRegdate());
-        form.setContent(board.getContent());
-        form.setTitle(board.getTitle());
+        form.setId(board.get().getId());
+        form.setWriter(board.get().getWriter());
+        form.setRegdate(board.get().getRegdate());
+        form.setContent(board.get().getContent());
+        form.setTitle(board.get().getTitle());
 
         model.addAttribute("form", form);
 
@@ -73,14 +73,7 @@ public class BoardController {
     @PostMapping("board/update")
     public String updateBoard(@ModelAttribute("form") Board getForm){
 
-        Board board = new Board();
-
-        board.setId(getForm.getId());
-        board.setTitle(getForm.getTitle());
-        board.setContent(getForm.getContent());
-        board.setWriter(getForm.getWriter());
-
-        boardService.saveBoard(board);
+        boardService.updateBoard(getForm.getId(), getForm);
 
         return "board/list";
 
