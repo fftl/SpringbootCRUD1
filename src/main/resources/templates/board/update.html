@@ -6,9 +6,8 @@
     <div th:replace="fragments/bodyHeader :: bodyHeader"/>
     <div>
         <h3>게시글 조회</h3>
-        <form th:action="@{/board/update}" th:object="${form}" method="post"> <!--th:object="${form}" controller 에서 보내준 form 을 받기 위함-->
+        <form th:action="@{/board/{boardId}/update (boardId=*{id})}" th:object="${form}" method="post"> <!--th:object="${form}" controller 에서 보내준 form 을 받기 위함-->
             <div class="form-group">
-                <input type="hidden" id="*{id}" name="id">
                 <div>
                     <label th:for="writer">작성자</label>
                     <input style="width:300px;" class="form-control" type="text" th:field="*{writer}" id="writer" name="writer" placeholder="작성자">

@@ -1,6 +1,7 @@
 package fftl.SpringbootCRUD1.service;
 
 import fftl.SpringbootCRUD1.domain.Board;
+import fftl.SpringbootCRUD1.repository.BoardDto;
 import fftl.SpringbootCRUD1.repository.BoardRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,35 +18,32 @@ public class BoardService {
     private final BoardRepository boardRepository;
 
     /** 게시글 등록 */
-    public Long addboard(Board board) {
-        boardRepository.save(board);
-        return board.getId();
+    @Transactional
+    public Long saveBoard(Board board) {
+        return boardRepository.save(board);
     }
 
-    /** 아이디를 이용해 게시글 찾기*/
-    public Optional<Board> findOne(Long memberId) {
-        return boardRepository.findById(memberId);
+    public Board OneBoard(Long id){
+        return boardRepository.findOneBoard(id);
     }
 
-//    public void updateBoard(Long id,Board board){
-//        Board form = boardRepository.findOne(id);
-//
-//
-//
-//        boardRepository.save(form);
-//    }
+    @Transactional
+    public Long updateBoard(Long id, Board board){
+        Board boardForm = boardRepository.findOneBoard(id);
+        boardForm.setWriter(board.getWriter());
+        boardForm.setTitle(board.getTitle());
+        boardForm.setContent(board.getContent());
+
+        return boardRepository.save(boardForm);
+    }
 
     public List<Board> findAll() {
-        return boardRepository.findAll();
+        return boardRepository.findAllBoard();
     }
 
     @Transactional
-    public void saveBoard(Board board){
-        boardRepository.save(board);
-    }
-
-    @Transactional
-    public void deleteBoard(Long memberId){
-        boardRepository.deleteById(memberId);
+    public void deleteBoard(Long id){
+        Board board = boardRepository.findOneBoard(id);
+        boardRepository.boardOneDelete(board);
     }
 }

@@ -1,6 +1,7 @@
 package fftl.SpringbootCRUD1.controller;
 
 import fftl.SpringbootCRUD1.domain.Board;
+import fftl.SpringbootCRUD1.repository.BoardDto;
 import fftl.SpringbootCRUD1.service.BoardService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,12 +25,12 @@ public class BoardController {
     }
 
     @GetMapping("/board/add")
-    public String addForm(){
+    public String goAdd(){
         return "board/add";
     }
 
     @PostMapping("/board/add")
-    public String add(Board boardform){
+    public String Add(Board boardform){
         SimpleDateFormat format1 = new SimpleDateFormat( "yyyy-MM-dd HH:mm:ss");
         Date date = new Date();
 
@@ -41,28 +42,28 @@ public class BoardController {
         board.setTitle(boardform.getTitle());
         board.setRegdate(datetime);
 
-        boardService.addboard(board);
+        boardService.saveBoard(board);
 
-        return "redirect:/";
+        return "redirect:/board/list";
     }
 
     @GetMapping("/board/list")
-    public String viewlist(Model model){
+    public String golist(Model model){
         List<Board> boards = boardService.findAll();
         model.addAttribute("boards", boards);
         return "board/list";
     }
 
-    @GetMapping("board/{boardId}/update")
-    public String viewUpdate(@PathVariable("boardId") Long id, Model model ){
-        Optional<Board> board = boardService.findOne(id);
+    @GetMapping("/board/{boardId}/update")
+    public String goUpdate(@PathVariable("boardId") Long id, Model model){
+        Board board = boardService.OneBoard(id);
 
         Board form = new Board();
-        form.setId(board.get().getId());
-        form.setWriter(board.get().getWriter());
-        form.setRegdate(board.get().getRegdate());
-        form.setContent(board.get().getContent());
-        form.setTitle(board.get().getTitle());
+        form.setId(board.getId());
+        form.setWriter(board.getWriter());
+        form.setRegdate(board.getRegdate());
+        form.setContent(board.getContent());
+        form.setTitle(board.getTitle());
 
         model.addAttribute("form", form);
 
@@ -70,21 +71,19 @@ public class BoardController {
 
     }
 
-    @PostMapping("board/update")
-    public String updateBoard(@ModelAttribute("form") Board getForm){
+    @PostMapping("/board/{boardId}/update")
+    public String updateBoard(@PathVariable("boardId") Long id, Board boardForm){
 
-        boardService.updateBoard(getForm.getId(), getForm);
-
-        return "board/list";
+        boardService.updateBoard(id, boardForm);
+        return "redirect:/board/list";
 
     }
 
-    @GetMapping("board/{boardId}/delete")
+    @GetMapping("/board/{boardId}/delete")
     public String deleteBoard(@PathVariable("boardId") Long id){
 
         boardService.deleteBoard(id);
-
-        return "board/list";
+        return "redirect:/board/list";
 
     }
 }
